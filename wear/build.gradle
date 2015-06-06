@@ -21,13 +21,9 @@ android {
 }
 
 dependencies {
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.support:wearable:1.1.0'
     compile 'com.google.android.gms:play-services-wearable:7.0.0'
-    compile 'com.squareup.dagger:dagger:1.2.1'
-    compile 'com.anprosit:DaggerAndroidHelperLibrary:0.0.4@aar'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
     compile 'com.jakewharton:butterknife:6.1.0'
 

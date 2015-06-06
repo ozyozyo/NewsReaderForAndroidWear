@@ -21,12 +21,14 @@ public class FetchFeedLoader extends AbstractLoader<List<Feed>> {
 
     @Override
     public List<Feed> loadInBackground() {
-        return doGet("http://headlines.yahoo.co.jp/rss/zdn_mkt-dom.xml");
+        ArrayList<Feed> result = new ArrayList<>();
+        result = doGet(result, "http://headlines.yahoo.co.jp/rss/zdn_mkt-dom.xml");
+        result = doGet(result, "http://rss.dailynews.yahoo.co.jp/fc/rss.xml");
+        result = doGet(result, "http://b.hatena.ne.jp/hotentry/it.rss");
+        return result;
     }
 
-    public List<Feed> doGet(String string)
-    {
-        ArrayList<Feed> result = new ArrayList<>();
+    private ArrayList<Feed> doGet(ArrayList<Feed> result, String string) {
         try{
             XmlPullParser xmlPullParser = Xml.newPullParser();
 

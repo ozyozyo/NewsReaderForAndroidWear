@@ -8,14 +8,20 @@ import com.ozyozyo.newsreaderforandroidwear.R;
 
 public class FeedViewHolder extends WearableListView.ViewHolder {
     private final TextView textView;
+    private final View backgroundView;
 
     public FeedViewHolder(View itemView) {
         super(itemView);
 
         textView = (TextView) itemView.findViewById(R.id.text);
+        backgroundView = itemView.findViewById(R.id.background);
     }
 
     public TextView getTextView() {
         return textView;
+    }
+
+    public View getBackgroundView() {
+        return backgroundView;
     }
 }

@@ -1,6 +1,7 @@
 package com.ozyozyo.newsreaderforandroidwear.app.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,7 +30,12 @@ public class FeedAdapter extends WearableListView.Adapter {
     public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
         FeedViewHolder viewHolder = (FeedViewHolder) holder;
         TextView view = viewHolder.getTextView();
-        view.setText(mFeeds.get(position).getTitle()); // FIXME
+        view.setText(mFeeds.get(position).getTitle());
+        viewHolder.getBackgroundView().setBackgroundColor(
+                position % 2 == 0
+                        ? mContext.getResources().getColor(R.color.light_blue)
+                        : Color.WHITE
+        );
         holder.itemView.setTag(position);
     }
 

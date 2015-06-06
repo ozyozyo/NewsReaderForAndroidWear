@@ -26,6 +26,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:7.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
     compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'pl.tajchert:buswear:0.9.5'
 
     compile fileTree(dir: 'libs', include: '*.jar')
 

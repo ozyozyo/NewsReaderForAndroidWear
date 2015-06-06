@@ -24,4 +24,15 @@ dependencies {
     wearApp project(':wear')
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
+
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+
+    compile 'com.squareup.dagger:dagger:1.2.1'
+    compile 'com.anprosit:DaggerAndroidHelperLibrary:0.0.4@aar'
+    compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.google.code.gson:gson:2.3'
+
+    compile 'pl.tajchert:buswear:0.9.5'
 }

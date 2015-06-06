@@ -1,4 +1,4 @@
-package com.ozyozyo.newsreaderforandroidwear.feed;
+package com.ozyozyo.newsreaderforandroidwear.feed.model;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;

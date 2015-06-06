@@ -4,7 +4,7 @@ import android.support.wearable.view.WearableListView;
 import android.view.View;
 import android.widget.TextView;
 
-import ozyozyo.com.newsreaderforandroidwear.R;
+import com.ozyozyo.newsreaderforandroidwear.R;
 
 public class FeedViewHolder extends WearableListView.ViewHolder {
     private final TextView textView;

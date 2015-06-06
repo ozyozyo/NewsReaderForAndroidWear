@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ozyozyo.com.newsreaderforandroidwear.R;
+import com.ozyozyo.newsreaderforandroidwear.R;
 
 public class FeedAdapter extends WearableListView.Adapter {
     private final Context mContext;
@@ -24,7 +24,7 @@ public class FeedAdapter extends WearableListView.Adapter {
     public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
         FeedViewHolder viewHolder = (FeedViewHolder) holder;
         TextView view = viewHolder.getTextView();
-        view.setText("aa"); // FIXME
+        view.setText(position + "aa"); // FIXME
         holder.itemView.setTag(position);
     }
 

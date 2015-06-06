@@ -4,21 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.RecyclerView;
 import android.support.wearable.view.CircledImageView;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ozyozyo.newsreaderforandroidwear.R;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import ozyozyo.com.newsreaderforandroidwear.R;
 
-public class MainActivity extends Activity implements WearableListView.ClickListener {
+public class MainActivity extends Activity implements WearableListView.ClickListener, WearableListView.OnScrollListener {
 
     private static final int SCROLL_INTERVAL_Y = 1;
     private static final long TIMER_INTERVAL = 1500;
@@ -50,19 +50,7 @@ public class MainActivity extends Activity implements WearableListView.ClickList
             ButterKnife.inject(MainActivity.this, stub);
             mFeedListView.setAdapter(mAdapter);
             mFeedListView.setClickListener(MainActivity.this);
-            mFeedListView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-
-                    mButton.setVisibility(newState == RecyclerView.SCROLL_STATE_IDLE ? View.VISIBLE : View.GONE);
-                }
-
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                }
-            });
+            mFeedListView.addOnScrollListener(MainActivity.this);
 
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,7 +69,7 @@ public class MainActivity extends Activity implements WearableListView.ClickList
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Toast.makeText(getApplicationContext(), "com/ozyozyo/newsreaderforandroidwear/app/ui/aa", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "aa", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -114,5 +102,25 @@ public class MainActivity extends Activity implements WearableListView.ClickList
         mTimer = null;
 
         mButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_media_next, null));
+    }
+
+    @Override
+    public void onScroll(int i) {
+
+    }
+
+    @Override
+    public void onAbsoluteScrollChange(int i) {
+
+    }
+
+    @Override
+    public void onScrollStateChanged(int i) {
+
+    }
+
+    @Override
+    public void onCentralPositionChanged(int i) {
+        mPreviousY = i;
     }
 }

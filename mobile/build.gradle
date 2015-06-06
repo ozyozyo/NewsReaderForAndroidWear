@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "ozyozyo.com.newsreaderforandroidwear"
+        applicationId "com.ozyozyo.newsreaderforandroidwear"
         minSdkVersion 14
         targetSdkVersion 18
         versionCode 1

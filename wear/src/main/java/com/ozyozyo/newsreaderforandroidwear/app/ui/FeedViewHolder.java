@@ -1,4 +1,4 @@
-package ozyozyo.com.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.ui;
 
 import android.support.wearable.view.WearableListView;
 import android.view.View;

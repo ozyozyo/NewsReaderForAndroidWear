@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -11,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
+    <android.support.wearable.view.CircledImageView
         android:id="@+id/change_status_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:text="@string/feed_stop" />
+        style="@style/status_circle_image_view_style"
+        app:circle_border_color="#999999"
+        app:circle_border_width="2dp"
+        app:circle_color="#3d3d3d"
+        app:circle_radius="25dp"
+        app:circle_radius_pressed="25dp"
+        />
 </RelativeLayout>

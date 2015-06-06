@@ -1,4 +1,4 @@
-package ozyozyo.com.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.ui;
 
 import android.content.Context;
 import android.support.wearable.view.WearableListView;
@@ -24,12 +24,12 @@ public class FeedAdapter extends WearableListView.Adapter {
     public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
         FeedViewHolder viewHolder = (FeedViewHolder) holder;
         TextView view = viewHolder.getTextView();
-        view.setText("aa");
+        view.setText("aa"); // FIXME
         holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 500;
     }
 }

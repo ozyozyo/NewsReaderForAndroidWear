@@ -1,13 +1,14 @@
-package ozyozyo.com.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.wearable.view.CircledImageView;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -20,10 +21,10 @@ import ozyozyo.com.newsreaderforandroidwear.R;
 public class MainActivity extends Activity implements WearableListView.ClickListener {
 
     private static final int SCROLL_INTERVAL_Y = 1;
-    private static final long TIMER_INTERVAL = 100;
+    private static final long TIMER_INTERVAL = 1500;
 
     @InjectView(R.id.feed) WearableListView mFeedListView;
-    @InjectView(R.id.change_status_button) Button mButton;
+    @InjectView(R.id.change_status_button) CircledImageView mButton;
 
     private FeedAdapter mAdapter;
     private Timer mTimer;
@@ -39,7 +40,6 @@ public class MainActivity extends Activity implements WearableListView.ClickList
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(mLayoutInflatedListener);
 
-        mTimer = new Timer();
         mHandler = new Handler();
         mAdapter = new FeedAdapter(MainActivity.this);
     }
@@ -67,7 +67,11 @@ public class MainActivity extends Activity implements WearableListView.ClickList
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    stopScroll();
+                    if (mTimer == null) {
+                        startScroll();
+                    } else {
+                        stopScroll();
+                    }
                 }
             });
 
@@ -77,7 +81,7 @@ public class MainActivity extends Activity implements WearableListView.ClickList
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        Toast.makeText(getApplicationContext(), "aa", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "com/ozyozyo/newsreaderforandroidwear/app/ui/aa", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -86,6 +90,7 @@ public class MainActivity extends Activity implements WearableListView.ClickList
     }
 
     private void startScroll() {
+        mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -101,9 +106,13 @@ public class MainActivity extends Activity implements WearableListView.ClickList
                 });
             }
         }, TIMER_INTERVAL, TIMER_INTERVAL);
+        mButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_media_pause, null));
     }
 
     private void stopScroll() {
         mTimer.cancel();
+        mTimer = null;
+
+        mButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_media_next, null));
     }
 }

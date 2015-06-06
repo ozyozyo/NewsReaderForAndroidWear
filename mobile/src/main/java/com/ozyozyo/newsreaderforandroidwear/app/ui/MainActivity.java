@@ -1,4 +1,4 @@
-package ozyozyo.com.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.ui;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

@@ -168,7 +168,7 @@ public class WearMainActivity extends Activity implements WearableListView.OnScr
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mAdapter = new FeedAdapter(WearMainActivity.this, object.getFeeds()); //TODO
+                mAdapter = new FeedAdapter(WearMainActivity.this, mClient, object.getFeeds()); //TODO
                 mFeedListView.setAdapter(mAdapter);
                 mButton.setVisibility(View.VISIBLE);
                 startScroll();

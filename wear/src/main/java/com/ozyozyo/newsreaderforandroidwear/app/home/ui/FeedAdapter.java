@@ -9,19 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.ozyozyo.newsreaderforandroidwear.R;
 import com.ozyozyo.newsreaderforandroidwear.feed.entity.Feed;
+import com.ozyozyo.newsreaderforandroidwear.feed.model.FeedModel;
 
 import java.util.ArrayList;
-
-import pl.tajchert.buswear.EventBus;
 
 public class FeedAdapter extends WearableListView.Adapter {
     private final Context mContext;
     private final ArrayList<Feed> mFeeds;
+    private final GoogleApiClient mClient;
 
-    public FeedAdapter(Context context, ArrayList<Feed> feeds) {
+    public FeedAdapter(Context context, GoogleApiClient client, ArrayList<Feed> feeds) {
         mContext = context;
+        mClient = client;
         mFeeds = feeds;
     }
 
@@ -44,7 +46,7 @@ public class FeedAdapter extends WearableListView.Adapter {
         viewHolder.getBackgroundView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().postRemote(mFeeds.get(position).getText(), mContext);
+                FeedModel.stockFeed(mClient, mFeeds.get(position));
                 Toast.makeText(mContext, "stored", Toast.LENGTH_SHORT).show();
             }
         });

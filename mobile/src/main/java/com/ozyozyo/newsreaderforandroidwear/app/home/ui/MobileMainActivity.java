@@ -1,26 +1,53 @@
 package com.ozyozyo.newsreaderforandroidwear.app.home.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.ozyozyo.newsreaderforandroidwear.R;
 
+import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import pl.tajchert.buswear.EventBus;
 
-public class MobileMainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MobileMainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+
+    @InjectView(R.id.list_view) ListView mListView;
+
+    private ArrayList<String> mLinkArray;
+    private LinkAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
         EventBus.getDefault().register(this);
+
+        mLinkArray = new ArrayList<>();
+        mAdapter = new LinkAdapter(this, mLinkArray);
+        mListView.setAdapter(mAdapter);
     }
+
+    @OnClick(R.id.show_button)
+    public void submit(View view) {
+        Intent intent = new Intent(MobileMainActivity.this, SwipeViewActivity.class);
+        intent.putExtra(SwipeViewActivity.KEY_URL_LIST, mLinkArray);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -69,7 +96,8 @@ public class MobileMainActivity extends ActionBarActivity implements GoogleApiCl
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+                mLinkArray.add(url);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

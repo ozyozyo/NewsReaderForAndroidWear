@@ -29,7 +29,7 @@ public class FeedAdapter extends WearableListView.Adapter {
     public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
         FeedViewHolder viewHolder = (FeedViewHolder) holder;
         TextView view = viewHolder.getTextView();
-        view.setText(mFeeds.get(position).getText()); // FIXME
+        view.setText(mFeeds.get(position).getTitle()); // FIXME
         holder.itemView.setTag(position);
     }
 

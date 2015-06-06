@@ -36,6 +36,7 @@ public class FetchFeedLoaderModel extends AbstractLoaderModel<List<Feed>> {
         for (Feed feed : s) {
             arrayList.add(feed);
         }
+
         EventBus.getDefault().postRemote(new CustomObject("tototo", arrayList), getContext());
     }
 

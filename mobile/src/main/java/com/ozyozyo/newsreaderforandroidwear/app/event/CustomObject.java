@@ -37,12 +37,16 @@ public class CustomObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeList(feeds);
+        dest.writeParcelableArray(feeds.toArray(new Feed[0]), 0);
     }
 
     public CustomObject(Parcel in){
         this.name = in.readString();
-        this.feeds = in.readArrayList(Feed.class.getClassLoader());
+        ArrayList<Feed> tmp = new ArrayList<>();
+        for (Parcelable p : in.readParcelableArray(Feed.class.getClassLoader())) {
+            tmp.add((Feed) p);
+        }
+        this.feeds = tmp;
     }
 
     @Override

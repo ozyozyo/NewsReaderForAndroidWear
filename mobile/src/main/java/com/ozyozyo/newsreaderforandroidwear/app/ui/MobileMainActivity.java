@@ -8,37 +8,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.Wearable;
 import com.ozyozyo.newsreaderforandroidwear.R;
-import com.ozyozyo.newsreaderforandroidwear.app.model.FetchFeedLoaderModel;
+
+import pl.tajchert.buswear.EventBus;
 
 public class MobileMainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Wearable.API)
-                .build();
-
-        mGoogleApiClient.connect();
-
+        EventBus.getDefault().register(this);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        new FetchFeedLoaderModel(this).load();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -62,6 +44,12 @@ public class MobileMainActivity extends ActionBarActivity implements GoogleApiCl
     }
 
     @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
     public void onConnected(Bundle bundle) {
         Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_LONG).show();
     }
@@ -74,5 +62,15 @@ public class MobileMainActivity extends ActionBarActivity implements GoogleApiCl
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
+    }
+
+    // Event Receiver
+    public void onEvent(final String url) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

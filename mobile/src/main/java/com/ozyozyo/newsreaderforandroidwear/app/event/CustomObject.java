@@ -9,20 +9,10 @@ import java.util.ArrayList;
 
 
 public class CustomObject implements Parcelable {
-    private String name;
     private ArrayList<Feed> feeds;
 
-    public CustomObject(String name, ArrayList<Feed> feeds) {
-        this.name = name;
+    public CustomObject(ArrayList<Feed> feeds) {
         this.feeds = feeds;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ArrayList<Feed> getFeeds() {
@@ -36,12 +26,10 @@ public class CustomObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
         dest.writeParcelableArray(feeds.toArray(new Feed[0]), 0);
     }
 
     public CustomObject(Parcel in){
-        this.name = in.readString();
         ArrayList<Feed> tmp = new ArrayList<>();
         for (Parcelable p : in.readParcelableArray(Feed.class.getClassLoader())) {
             tmp.add((Feed) p);
@@ -51,9 +39,7 @@ public class CustomObject implements Parcelable {
 
     @Override
     public String toString() {
-        return "CustomObject{" +
-                "name='" + name + '\'' +
-                '}';
+        return this.feeds.toString();
     }
 
 }

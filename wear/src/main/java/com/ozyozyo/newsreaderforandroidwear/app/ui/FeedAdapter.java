@@ -4,13 +4,17 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ozyozyo.newsreaderforandroidwear.R;
 import com.ozyozyo.newsreaderforandroidwear.feed.entity.Feed;
 
 import java.util.ArrayList;
+
+import pl.tajchert.buswear.EventBus;
 
 public class FeedAdapter extends WearableListView.Adapter {
     private final Context mContext;
@@ -27,7 +31,7 @@ public class FeedAdapter extends WearableListView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
+    public void onBindViewHolder(WearableListView.ViewHolder holder, final int position) {
         FeedViewHolder viewHolder = (FeedViewHolder) holder;
         TextView view = viewHolder.getTextView();
         view.setText(mFeeds.get(position).getTitle());
@@ -37,6 +41,13 @@ public class FeedAdapter extends WearableListView.Adapter {
                         : Color.WHITE
         );
         holder.itemView.setTag(position);
+        viewHolder.getBackgroundView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().postRemote(mFeeds.get(position).getText(), mContext);
+                Toast.makeText(mContext, "stored", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

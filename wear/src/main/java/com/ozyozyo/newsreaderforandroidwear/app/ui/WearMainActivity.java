@@ -9,8 +9,12 @@ import android.support.wearable.view.CircledImageView;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
 import android.view.View;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.Wearable;
 import com.ozyozyo.newsreaderforandroidwear.R;
 import com.ozyozyo.newsreaderforandroidwear.app.event.CustomObject;
 
@@ -21,8 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.tajchert.buswear.EventBus;
 
-public class WearMainActivity extends Activity implements WearableListView.ClickListener,
-        WearableListView.OnScrollListener {
+public class WearMainActivity extends Activity implements WearableListView.OnScrollListener {
 
     private static final int SCROLL_INTERVAL_Y = 1;
     private static final long TIMER_INTERVAL = 1500;
@@ -35,6 +38,7 @@ public class WearMainActivity extends Activity implements WearableListView.Click
     private Handler mHandler;
 
     private int mPreviousY = 0;
+    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,43 @@ public class WearMainActivity extends Activity implements WearableListView.Click
 
         mHandler = new Handler();
         EventBus.getDefault().register(this);
+
+        mClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(Bundle bundle) {
+
+                    }
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(ConnectionResult connectionResult) {
+                    }
+                })
+                .addApi(Wearable.API)
+                .build();
+        mClient.connect();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String message = "Hello world";
+                NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(mClient).await();
+                for (Node node : nodes.getNodes()) {
+                    Wearable.MessageApi.sendMessage(mClient, node.getId(), "/hello", message.getBytes()).await();
+                }
+            }
+        }).start();
     }
 
     @Override
     protected void onDestroy() {
+        mClient.disconnect();
+
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
@@ -59,7 +96,6 @@ public class WearMainActivity extends Activity implements WearableListView.Click
         public void onLayoutInflated(WatchViewStub stub) {
             ButterKnife.inject(WearMainActivity.this, stub);
 
-            mFeedListView.setClickListener(WearMainActivity.this);
             mFeedListView.addOnScrollListener(WearMainActivity.this);
 
             mButton.setVisibility(View.GONE);
@@ -103,17 +139,6 @@ public class WearMainActivity extends Activity implements WearableListView.Click
         mButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_media_next, null));
     }
 
-    // WearableListView.ClickListener
-    @Override
-    public void onClick(WearableListView.ViewHolder viewHolder) {
-        Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTopEmptyRegionClick() {
-
-    }
-
     // WearableListView.OnScrollListener
     @Override
     public void onScroll(int i) {
@@ -135,6 +160,8 @@ public class WearMainActivity extends Activity implements WearableListView.Click
         mPreviousY = i;
     }
 
+
+    // Event Receiver
     public void onEvent(final CustomObject object) {
         if (mAdapter != null) return;
 

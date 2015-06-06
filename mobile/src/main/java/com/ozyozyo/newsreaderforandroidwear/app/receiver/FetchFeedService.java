@@ -1,11 +1,11 @@
-package com.ozyozyo.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.receiver;
 
 import android.util.Log;
 import android.util.Xml;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
-import com.ozyozyo.newsreaderforandroidwear.app.event.CustomObject;
+import com.ozyozyo.newsreaderforandroidwear.app.home.event.CustomObject;
 import com.ozyozyo.newsreaderforandroidwear.feed.entity.Feed;
 
 import org.xmlpull.v1.XmlPullParser;

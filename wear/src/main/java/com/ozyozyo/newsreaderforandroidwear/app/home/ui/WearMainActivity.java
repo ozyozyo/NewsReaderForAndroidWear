@@ -1,4 +1,4 @@
-package com.ozyozyo.newsreaderforandroidwear.app.ui;
+package com.ozyozyo.newsreaderforandroidwear.app.home.ui;
 
 
 import android.app.Activity;
@@ -16,7 +16,7 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 import com.ozyozyo.newsreaderforandroidwear.R;
-import com.ozyozyo.newsreaderforandroidwear.app.event.CustomObject;
+import com.ozyozyo.newsreaderforandroidwear.app.home.event.CustomObject;
 
 import java.util.Timer;
 import java.util.TimerTask;

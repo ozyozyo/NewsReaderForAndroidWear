@@ -1,4 +1,4 @@
-package com.ozyozyo.newsreaderforandroidwear.app.event;
+package com.ozyozyo.newsreaderforandroidwear.app.home.event;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import ozyozyo.com.newsreaderforandroidwear.R;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MobileMainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

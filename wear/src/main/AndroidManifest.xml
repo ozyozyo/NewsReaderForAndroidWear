@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen" >
         <activity
-            android:name="com.ozyozyo.newsreaderforandroidwear.app.ui.MainActivity"
+            android:name=".app.ui.WearMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

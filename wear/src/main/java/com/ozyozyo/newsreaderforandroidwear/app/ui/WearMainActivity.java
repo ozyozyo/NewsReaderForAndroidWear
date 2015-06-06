@@ -18,7 +18,7 @@ import java.util.TimerTask;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends Activity implements WearableListView.ClickListener, WearableListView.OnScrollListener {
+public class WearMainActivity extends Activity implements WearableListView.ClickListener, WearableListView.OnScrollListener {
 
     private static final int SCROLL_INTERVAL_Y = 1;
     private static final long TIMER_INTERVAL = 1500;
@@ -41,16 +41,16 @@ public class MainActivity extends Activity implements WearableListView.ClickList
         stub.setOnLayoutInflatedListener(mLayoutInflatedListener);
 
         mHandler = new Handler();
-        mAdapter = new FeedAdapter(MainActivity.this);
+        mAdapter = new FeedAdapter(WearMainActivity.this);
     }
 
     private WatchViewStub.OnLayoutInflatedListener mLayoutInflatedListener = new WatchViewStub.OnLayoutInflatedListener() {
         @Override
         public void onLayoutInflated(WatchViewStub stub) {
-            ButterKnife.inject(MainActivity.this, stub);
+            ButterKnife.inject(WearMainActivity.this, stub);
             mFeedListView.setAdapter(mAdapter);
-            mFeedListView.setClickListener(MainActivity.this);
-            mFeedListView.addOnScrollListener(MainActivity.this);
+            mFeedListView.setClickListener(WearMainActivity.this);
+            mFeedListView.addOnScrollListener(WearMainActivity.this);
 
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override

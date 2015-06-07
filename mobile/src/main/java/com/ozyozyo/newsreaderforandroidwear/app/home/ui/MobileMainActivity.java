@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.ozyozyo.newsreaderforandroidwear.R;
+import com.ozyozyo.newsreaderforandroidwear.app.home.event.DeleteEvent;
 
 import java.util.ArrayList;
 
@@ -97,6 +98,16 @@ public class MobileMainActivity extends ActionBarActivity implements GoogleApiCl
             @Override
             public void run() {
                 mLinkArray.add(url);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void onEvent(final DeleteEvent deleteEvent) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLinkArray.remove(deleteEvent.getUrl());
                 mAdapter.notifyDataSetChanged();
             }
         });

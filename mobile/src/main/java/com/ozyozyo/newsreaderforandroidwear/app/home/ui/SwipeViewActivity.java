@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class SwipeViewActivity extends ActionBarActivity {
     public static final String KEY_URL_LIST = "urlList";
-    private ArrayList<String> mLinkList;
-    private LinkPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +18,12 @@ public class SwipeViewActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_swipe_view);
         Intent intent = getIntent();
-        mLinkList = intent.getExtras().getStringArrayList(KEY_URL_LIST);
-        mPagerAdapter = new LinkPagerAdapter(getSupportFragmentManager(), mLinkList);
+        ArrayList<String> linkList = intent.getExtras().getStringArrayList(KEY_URL_LIST);
+        LinkPagerAdapter pagerAdapter = new LinkPagerAdapter(getSupportFragmentManager(), linkList);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        viewPager.setAdapter(mPagerAdapter);
+        viewPager.setOnPageChangeListener(pagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(pagerAdapter);
     }
 }

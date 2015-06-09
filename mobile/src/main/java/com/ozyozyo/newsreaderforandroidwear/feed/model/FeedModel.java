@@ -14,8 +14,9 @@ import java.util.ArrayList;
 public class FeedModel {
     public static ArrayList<Feed> create() {
         ArrayList<Feed> result = new ArrayList<>();
-        result = doGet(result, "http://headlines.yahoo.co.jp/rss/zdn_mkt-dom.xml");
+        result = doGet(result, "http://headlines.yahoo.co.jp/rss/jct-dom.xml");
         result = doGet(result, "http://rss.dailynews.yahoo.co.jp/fc/rss.xml");
+        result = doGet(result, "http://headlines.yahoo.co.jp/rss/zdn_mkt-dom.xml");
         result = doGet(result, "http://b.hatena.ne.jp/hotentry/it.rss");
         return result;
     }
